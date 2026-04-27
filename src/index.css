@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Ultra dark tattoo studio theme */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 346 82% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 346 82% 35%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 346 82% 35%;
+    --radius: 0.25rem;
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 346 82% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 346 82% 35%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-black text-white font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Typography scale */
+  h1, h2, h3, .font-display {
+    font-family: 'New Rocker', cursive;
+  }
+
+  h4, h5, h6, .font-heading {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer components {
+  /* Grain / noise texture overlay for that raw tattoo studio feel */
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* Ink splatter mask effect */
+  .ink-mask {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%23000' d='M45.7,-51.3C59.9,-41.3,72.6,-28.1,76.3,-13.1C80,1.9,74.7,18.7,64.8,32.2C54.9,45.7,40.4,55.9,24.6,62.3C8.8,68.7,-8.3,71.3,-24.3,66.9C-40.3,62.5,-55.2,51.1,-63.9,36.6C-72.6,22.1,-75.1,4.5,-70.4,-10.7C-65.7,-25.9,-53.8,-38.7,-41,-48.9C-28.2,-59.1,-14.1,-66.7,0.8,-67.7C15.7,-68.7,31.5,-61.3,45.7,-51.3Z' transform='translate(100 100)' /%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%23000' d='M45.7,-51.3C59.9,-41.3,72.6,-28.1,76.3,-13.1C80,1.9,74.7,18.7,64.8,32.2C54.9,45.7,40.4,55.9,24.6,62.3C8.8,68.7,-8.3,71.3,-24.3,66.9C-40.3,62.5,-55.2,51.1,-63.9,36.6C-72.6,22.1,-75.1,4.5,-70.4,-10.7C-65.7,-25.9,-53.8,-38.7,-41,-48.9C-28.2,-59.1,-14.1,-66.7,0.8,-67.7C15.7,-68.7,31.5,-61.3,45.7,-51.3Z' transform='translate(100 100)' /%3E%3C/svg%3E");
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+  }
+
+  /* Glow effect for blood red accent */
+  .glow-blood {
+    box-shadow: 0 0 20px rgba(159, 18, 57, 0.4), 0 0 40px rgba(159, 18, 57, 0.2);
+  }
+
+  .text-glow-blood {
+    text-shadow: 0 0 10px rgba(159, 18, 57, 0.6), 0 0 20px rgba(159, 18, 57, 0.3);
+  }
+
+  /* Tribal divider pattern */
+  .tribal-divider {
+    background: repeating-linear-gradient(
+      90deg,
+      #0a0a0a 0px,
+      #0a0a0a 10px,
+      #1a1a1a 10px,
+      #1a1a1a 20px
+    );
+    position: relative;
+  }
+
+  .tribal-divider::before,
+  .tribal-divider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #1a1a1a);
+  }
+
+  .tribal-divider::after {
+    right: 0;
+    background: linear-gradient(to left, transparent, #1a1a1a);
+  }
+
+  /* Custom scrollbar - dark and aggressive */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border: 1px solid #9F1239;
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9F1239;
+  }
+}
