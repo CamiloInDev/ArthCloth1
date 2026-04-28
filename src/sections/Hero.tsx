@@ -20,25 +20,30 @@ export const Hero: React.FC = () => {
   const slides = [
     {
       id: 1,
-      title: "Coleccion Malos habitos",
-      subtitle: "",
-      image: "/images/products/Busomaloshabitos.webp",
-      cta: "Ver Colección"
-    },
-    {
-      id: 2,
       title: "PREMIUM STREETWEAR",
       subtitle: "Calidad que define tu estilo",
       image: "/images/products/carru2.webp",
       image2: "/images/products/carru2s.webp",
-      cta: "Explorar"
+      cta: "Explorar",
+      link: "#shop-accesorios"
+    },
+    {
+      id: 2,
+      title: "Coleccion Malos habitos",
+      subtitle: "",
+      image: "/images/products/Busomaloshabitos.webp",
+      cta: "Ver Colección",
+      link: "#shop-ropa"
     },
     {
       id: 3,
       title: "LIMITED EDITION",
       subtitle: "Piezas exclusivas no volverán",
-      image: "https://picsum.photos/seed/arthcloth3/1920/1080.jpg",
-      cta: "Comprar Ahora"
+      image: "/images/products/carru3.webp",
+      image2: "/images/products/carru4.webp",
+      mobileImage: "/images/products/carru4.webp",
+      cta: "Comprar Ahora",
+      link: "#shop"
     }
   ];
 
@@ -80,6 +85,15 @@ export const Hero: React.FC = () => {
 
     return () => ctx.revert();
   }, [currentSlide]);
+
+  // Auto-advance slides every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   const handleCtaMouseEnter = () => {
     gsap.to(ctaRef.current, {
@@ -128,7 +142,7 @@ export const Hero: React.FC = () => {
             />
             {/* Mobile version: Single centered image */}
             <img
-              src={slide.image}
+              src={slide.mobileImage || slide.image}
               alt={slide.title}
               className="sm:hidden absolute inset-0 w-full h-full object-cover object-top"
               style={{ filter: 'brightness(0.5)' }}
@@ -174,7 +188,7 @@ export const Hero: React.FC = () => {
 
               <a
                 ref={ctaRef}
-                href="#shop"
+                href={slide.link || "#shop"}
                 onMouseEnter={handleCtaMouseEnter}
                 onMouseLeave={handleCtaMouseLeave}
                 className="relative inline-flex items-center gap-2 px-8 py-4 border-2 border-ink-blood text-white font-heading text-base tracking-[0.1em] uppercase bg-ink-blood hover:bg-ink-blood/90 transition-all duration-300 hover:scale-105 overflow-hidden group"
