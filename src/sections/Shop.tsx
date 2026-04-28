@@ -16,6 +16,7 @@ interface Product {
   category: 'ropa' | 'accesorios';
   image: string;
   badge?: string;
+  description?: string;
 }
 
 const products: Product[] = [
@@ -23,43 +24,45 @@ const products: Product[] = [
   {
     id: 1,
     name: 'Hoodie Cropped',
-    price: 45.99,
+    price: 100000,
     category: 'ropa',
     image: '/images/products/busocrop.webp',
   },
   {
     id: 2,
     name: 'Hoodie',
-    price: 54.99,
+    price: 90000,
     category: 'ropa',
     image: '/images/products/Busomaloshabitos.webp',
   },
   {
     id: 3,
     name: 'Camibuso',
-    price: 39.99,
+    price: 65000,
     category: 'ropa',
     image: '/images/products/camibuso.webp',
   },
   {
     id: 4,
-    name: 'Coleccion Malos Hábitos',
-    price: 24.99,
+    name: 'Camiseta + Hoodie Malos Hábitos',
+    price: 150000, // Precio combinado hoodie + camiseta
     category: 'ropa',
     image: '/images/products/camimaloshabi.webp',
     badge: 'Popular',
+    description: 'Camiseta: $60.000 | Hoodie: $90.000 | Combo: $150.000',
   },
   {
     id: 5,
-    name: 'Coleccion Death or Glory',
-    price: 24.99,
+    name: 'Camiseta + Hoodie Death or Glory',
+    price: 150000, // Precio combinado hoodie + camiseta
     category: 'ropa',
     image: '/images/products/camideath.webp',
+    description: 'Camiseta: $60.000 | Hoodie: $90.000 | Combo: $150.000',
   },
   {
     id: 6,
     name: 'Camiseta A.C.A.B',
-    price: 27.99,
+    price: 60000,
     category: 'ropa',
     image: '/images/products/acab.webp',
     badge: 'New',
@@ -68,14 +71,14 @@ const products: Product[] = [
   {
     id: 7,
     name: 'Bufanda B&W',
-    price: 19.99,
+    price: 80000,
     category: 'accesorios',
     image: '/images/products/carru2.webp',
   },
   {
     id: 8,
     name: 'Aretes',
-    price: 14.99,
+    price: 75000, // Precio de aretes como accesorio premium
     category: 'accesorios',
     image: 'https://picsum.photos/seed/aretes/600/600.jpg',
   },
@@ -119,8 +122,57 @@ export const Shop: React.FC = () => {
   const filteredProducts = products.filter((p) => p.category === activeCategory);
 
   const handleWhatsAppClick = (product: Product) => {
-    const message = encodeURIComponent(`Hola, estoy interesado en el producto: ${product.name} con precio €${product.price.toFixed(2)}`);
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    const formattedPrice = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(product.price);
+    
+    let message = `Hola, estoy interesado en: ${product.name}\n💰 Precio: ${formattedPrice}`;
+    
+    // Add specific details for combo products
+    if (product.description) {
+      message += `\n📝 Detalles: ${product.description}`;
+    }
+    
+    message += `\n\n¿Tienen disponibilidad? ¡Gracias!`;
+    
+    window.open(`https://wa.me/1234567890?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const handleQuickView = (product: Product) => {
+    // Create a modal or expand the image
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4';
+    modal.innerHTML = `
+      <div class="relative max-w-4xl max-h-[90vh] w-full">
+        <button class="absolute -top-12 right-0 text-white hover:text-ink-blood transition-colors text-3xl">
+          ×
+        </button>
+        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain rounded-lg" />
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
+          <h3 class="text-white text-2xl font-bold mb-2">${product.name}</h3>
+          ${product.description ? `<p class="text-white/80 text-sm">${product.description}</p>` : ''}
+          <p class="text-ink-blood text-xl font-bold">${new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+          }).format(product.price)}</p>
+        </div>
+      </div>
+    `;
+    
+    // Add click event to close modal
+    modal.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target === modal || target.tagName === 'BUTTON') {
+        document.body.removeChild(modal);
+      }
+    });
+    
+    document.body.appendChild(modal);
   };
 
   return (
@@ -292,6 +344,7 @@ export const Shop: React.FC = () => {
                       <MessageCircle className="w-6 h-6 group-hover/btn:animate-pulse" />
                     </button>
                     <button
+                      onClick={() => handleQuickView(product)}
                       className="group/btn w-14 h-14 bg-ink-black/90 border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/20 hover:border-white hover:scale-110 transition-all duration-300 shadow-lg"
                       aria-label="Quick view"
                     >
@@ -306,14 +359,26 @@ export const Shop: React.FC = () => {
                 {/* Top border decoration */}
                 <div className="absolute top-0 left-5 right-5 h-px bg-gradient-to-r from-transparent via-ink-blood/30 to-transparent"></div>
                 
-                <h3 className="font-heading text-sm text-white tracking-wider uppercase mb-3 font-semibold">
+                <h3 className="font-heading text-sm text-white tracking-wider uppercase mb-2 font-semibold">
                   {product.name}
                 </h3>
+                
+                {/* Product Description */}
+                {product.description && (
+                  <p className="font-heading text-xs text-white/60 tracking-[0.1em] uppercase mb-3">
+                    {product.description}
+                  </p>
+                )}
                 
                 <div className="flex items-center justify-between">
                   <div className="relative">
                     <p className="font-body text-xl text-ink-bloodLight font-bold tracking-tight">
-                      €{product.price.toFixed(2)}
+                      {new Intl.NumberFormat('es-CO', {
+                        style: 'currency',
+                        currency: 'COP',
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                      }).format(product.price)}
                     </p>
                     <div className="absolute -inset-1 bg-ink-blood/10 blur-sm"></div>
                   </div>
