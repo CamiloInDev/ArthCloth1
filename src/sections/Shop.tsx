@@ -43,18 +43,18 @@ const products: Product[] = [
   },
   {
     id: 4,
-    name: 'Camiseta Malos Hábitos',
+    name: 'Coleccion Malos Hábitos',
     price: 24.99,
     category: 'ropa',
-    image: 'https://picsum.photos/seed/maloshabitos/600/600.jpg',
+    image: '/images/products/camimaloshabi.webp',
     badge: 'Popular',
   },
   {
     id: 5,
-    name: 'Camiseta Arth Cloth',
+    name: 'Coleccion Death or Glory',
     price: 24.99,
     category: 'ropa',
-    image: 'https://picsum.photos/seed/arthcloth/600/600.jpg',
+    image: '/images/products/camideath.webp',
   },
   {
     id: 6,
@@ -150,7 +150,7 @@ export const Shop: React.FC = () => {
         
         <div className="relative inline-block">
           <p className="font-heading text-sm md:text-base text-white/70 tracking-[0.3em] uppercase mb-4">
-            Streetwear gótico-punk y accesorios tribales
+            Prendas locales forjadas autonomamente
           </p>
           <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-ink-blood via-ink-blood/50 to-transparent"></div>
         </div>
