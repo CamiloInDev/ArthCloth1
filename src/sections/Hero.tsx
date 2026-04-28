@@ -24,6 +24,7 @@ export const Hero: React.FC = () => {
       subtitle: "Calidad que define tu estilo",
       image: "/images/products/carru2.webp",
       image2: "/images/products/carru2s.webp",
+      mobileImage: "/images/products/carru2s.webp",
       cta: "Explorar",
       link: "#shop-accesorios"
     },
