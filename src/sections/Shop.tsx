@@ -77,10 +77,11 @@ const products: Product[] = [
   },
   {
     id: 8,
-    name: 'Aretes',
-    price: 75000, // Precio de aretes como accesorio premium
+    name: 'Coming Soon',
+    price: 0,
     category: 'accesorios',
-    image: 'https://picsum.photos/seed/aretes/600/600.jpg',
+    image: '',
+    badge: 'Soon',
   },
 ];
 
@@ -138,7 +139,7 @@ export const Shop: React.FC = () => {
     
     message += `\n\n¿Tienen disponibilidad? ¡Gracias!`;
     
-    window.open(`https://wa.me/1234567890?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/573015070652?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleQuickView = (product: Product) => {
@@ -306,14 +307,27 @@ export const Shop: React.FC = () => {
               <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-ink-blood/50"></div>
               {/* Enhanced Product Image */}
               <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-ink-black to-ink-black/50">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className={`w-full h-full object-cover transition-all duration-700 ${
-                    hoveredProduct === product.id ? 'scale-125 brightness-50 contrast-110' : 'scale-100 brightness-75'
-                  }`}
-                  loading="lazy"
-                />
+                {product.image ? (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className={`w-full h-full object-cover transition-all duration-700 ${
+                      hoveredProduct === product.id ? 'scale-125 brightness-50 contrast-110' : 'scale-100 brightness-75'
+                    }`}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-ink-black to-ink-black/80">
+                    <div className="text-center">
+                      <h3 className="font-display text-2xl md:text-3xl text-white mb-2 tracking-wider">
+                        Coming
+                      </h3>
+                      <h3 className="font-display text-2xl md:text-3xl text-ink-blood tracking-wider">
+                        Soon
+                      </h3>
+                    </div>
+                  </div>
+                )}
 
                 {/* Enhanced Badge */}
                 {product.badge && (
@@ -328,30 +342,32 @@ export const Shop: React.FC = () => {
                 )}
 
                 {/* Enhanced overlay with ink effects */}
-                <div
-                  className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${
-                    hoveredProduct === product.id ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink-black/80 via-ink-black/40 to-transparent"></div>
-                  <InkSplatter variant={3} opacity={0.3} />
-                  <div className="relative z-10 flex gap-4">
-                    <button
-                      onClick={() => handleWhatsAppClick(product)}
-                      className="group/btn w-14 h-14 bg-ink-black/90 border-2 border-ink-blood/60 flex items-center justify-center text-white hover:bg-ink-blood hover:border-ink-blood hover:scale-110 transition-all duration-300 shadow-lg shadow-ink-blood/30"
-                      aria-label="Contactar por WhatsApp"
-                    >
-                      <MessageCircle className="w-6 h-6 group-hover/btn:animate-pulse" />
-                    </button>
-                    <button
-                      onClick={() => handleQuickView(product)}
-                      className="group/btn w-14 h-14 bg-ink-black/90 border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/20 hover:border-white hover:scale-110 transition-all duration-300 shadow-lg"
-                      aria-label="Quick view"
-                    >
-                      <Eye className="w-6 h-6 group-hover/btn:animate-pulse" />
-                    </button>
+                {product.image && (
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${
+                      hoveredProduct === product.id ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink-black/80 via-ink-black/40 to-transparent"></div>
+                    <InkSplatter variant={3} opacity={0.3} />
+                    <div className="relative z-10 flex gap-4">
+                      <button
+                        onClick={() => handleWhatsAppClick(product)}
+                        className="group/btn w-14 h-14 bg-ink-black/90 border-2 border-ink-blood/60 flex items-center justify-center text-white hover:bg-ink-blood hover:border-ink-blood hover:scale-110 transition-all duration-300 shadow-lg shadow-ink-blood/30"
+                        aria-label="Contactar por WhatsApp"
+                      >
+                        <MessageCircle className="w-6 h-6 group-hover/btn:animate-pulse" />
+                      </button>
+                      <button
+                        onClick={() => handleQuickView(product)}
+                        className="group/btn w-14 h-14 bg-ink-black/90 border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/20 hover:border-white hover:scale-110 transition-all duration-300 shadow-lg"
+                        aria-label="Quick view"
+                      >
+                        <Eye className="w-6 h-6 group-hover/btn:animate-pulse" />
+                      </button>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Enhanced Product Info */}
@@ -370,24 +386,26 @@ export const Shop: React.FC = () => {
                   </p>
                 )}
                 
-                <div className="flex items-center justify-between">
-                  <div className="relative">
-                    <p className="font-body text-xl text-ink-bloodLight font-bold tracking-tight">
-                      {new Intl.NumberFormat('es-CO', {
-                        style: 'currency',
-                        currency: 'COP',
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0
-                      }).format(product.price)}
-                    </p>
-                    <div className="absolute -inset-1 bg-ink-blood/10 blur-sm"></div>
+                {product.price > 0 && (
+                  <div className="flex items-center justify-between">
+                    <div className="relative">
+                      <p className="font-body text-xl text-ink-bloodLight font-bold tracking-tight">
+                        {new Intl.NumberFormat('es-CO', {
+                          style: 'currency',
+                          currency: 'COP',
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0
+                        }).format(product.price)}
+                      </p>
+                      <div className="absolute -inset-1 bg-ink-blood/10 blur-sm"></div>
+                    </div>
+                    
+                    {/* Quick action indicator */}
+                    <div className="w-8 h-8 rounded-full border border-ink-blood/30 flex items-center justify-center">
+                      <div className="w-2 h-2 bg-ink-blood rounded-full animate-pulse"></div>
+                    </div>
                   </div>
-                  
-                  {/* Quick action indicator */}
-                  <div className="w-8 h-8 rounded-full border border-ink-blood/30 flex items-center justify-center">
-                    <div className="w-2 h-2 bg-ink-blood rounded-full animate-pulse"></div>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           ))}

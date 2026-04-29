@@ -27,27 +27,27 @@ export const Footer: React.FC = () => {
           {/* Brand column */}
           <div>
             <h3 className="font-display text-3xl text-white mb-4">ARTHCLOTH</h3>
-            <p className="font-body text-sm text-white/50 leading-relaxed mb-6">
-              Tienda de ropa streetwear y accesorios. Estilo único desde 2018. Cada prenda es una
-              declaración, cada diseño cuenta una historia.
-            </p>
-            <div className="flex gap-4">
+                        <div className="flex gap-4">
               <a
-                href="#"
+                href="https://www.instagram.com/art_cloth_"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-ink-bloodLight hover:border-ink-blood/50 transition-all duration-300"
-                aria-label="Instagram"
+                aria-label="Instagram ArthCloth"
               >
                 <Instagram className="w-4 h-4" />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/piiedrapapelotijera"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-ink-bloodLight hover:border-ink-blood/50 transition-all duration-300"
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
               </a>
               <a
-                href="#"
+                href="mailto:angela01c@gmail.com"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-ink-bloodLight hover:border-ink-blood/50 transition-all duration-300"
                 aria-label="Email"
               >
@@ -90,18 +90,18 @@ export const Footer: React.FC = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-ink-blood mt-1 flex-shrink-0" />
                 <span className="font-body text-sm text-white/50">
-                  Calle Oscura 666, Barrio Gótico
+                  Bogotá, Colombia
                   <br />
-                  Barcelona, España
+                  Envíos a todo el país
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-ink-blood flex-shrink-0" />
-                <span className="font-body text-sm text-white/50">+34 666 999 666</span>
+                <span className="font-body text-sm text-white/50">+57 301 507 0652</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-ink-blood flex-shrink-0" />
-                <span className="font-body text-sm text-white/50">hola@arthcloth.com</span>
+                <span className="font-body text-sm text-white/50">angela01c@gmail.com</span>
               </li>
             </ul>
           </div>
@@ -110,7 +110,7 @@ export const Footer: React.FC = () => {
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="font-body text-xs text-white/30">
-            © 2024 ARTHCLOTH. Todos los derechos reservados.
+            © 2026 ArthCloth. Todos los derechos reservados.
           </p>
           <p className="font-heading text-[10px] text-white/20 tracking-[0.2em] uppercase">
             Hecho con sangre y tinta

@@ -15,33 +15,33 @@ export const About: React.FC = () => {
   const slides = [
     {
       id: 1,
-      title: "Historia de Sangre y Tinta",
-      subtitle: "Desde 2018",
+      title: "De la piel al textil.",
+      subtitle: "Mi Historia",
       image: "/images/tattoos/logoangelaFinal.webp",
       isLogo: true,
       content: [
-        "<span class='text-ink-bloodLight font-semibold'>ETERNAL INK</span> nació en el corazón del barrio gótico, entre callejones oscuros y el zumbido constante de las máquinas de tatuar. Lo que comenzó como un pequeño estudio clandestino se ha convertido en un santuario para quienes llevan el arte en la piel.",
-        "Nuestro estilo se nutre de las tradiciones <span class='text-white font-medium'>old-school americanas</span>, del poderío del <span class='text-white font-medium'>blackwork</span> europeo, y de la fuerza ancestral de los patrones <span class='text-white font-medium'>tribales</span>. Cada pieza que sale de nuestro estudio es una declaración de guerra contra lo ordinario."
+        "Soy Ángela, tatuadora de Bogotá. En mi estudio, plasmo ideas que duran para siempre en la piel; ahora, <span class='text-ink-bloodLight font-semibold'>ArthCloth</span> es el puente para trasladar ese arte y mi estilo gráfico a prendas únicas.",
+        "Fusionamos el mundo del arte corporal con el streetwear. No solo hacemos ropa: creamos piezas de colección para quienes entienden que vestirse es también una forma de identidad."
       ]
     },
     {
       id: 2,
-      title: "Arte Urbano",
-      subtitle: "Expansión 2022",
-      image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
+      title: "Arte Corporal",
+      subtitle: "Mi Estudio",
+      image: "/images/tattoos/arte.webp",
       content: [
-        "En 2022 expandimos nuestra visión al mundo del streetwear. La ropa y los accesorios de <span class='text-ink-bloodLight font-semibold'>ETERNAL INK</span> no son moda pasajera — son armadura para quienes caminan entre sombras.",
-        "Cada prenda está diseñada con la misma pasión y atención al detalle que nuestros tatuajes. Desde hoodies hasta camisetas, cada pieza cuenta una historia y lleva el sello de nuestra rebeldía artística."
+        "Mi estudio en Bogotá es un espacio donde las ideas cobran vida en la piel. Cada tatuaje es una conversación entre cliente y artista, una historia que se contará por siempre.",
+        "Especializada en estilos que van desde el blackwork hasta el tradicional, cada diseño refleja la personalidad única de quien lo lleva."
       ]
     },
     {
       id: 3,
-      title: "El Futuro",
-      subtitle: "Nuestra Visión",
-      image: "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=800&q=80",
+      title: "ArthCloth",
+      subtitle: "Colecciones",
+      image: "/images/tattoos/arth.webp",
       content: [
-        "Miramos hacia el futuro con la misma intensidad con que creamos cada tatuaje. Nuestro compromiso con el arte, la calidad y la autenticidad sigue siendo la piedra angular de todo lo que hacemos.",
-        "ETERNAL INK no es solo una marca — es un movimiento, una filosofía de vida para quienes no temen expresar su verdadera identidad a través del arte corporal y la moda urbana."
+        "La marca nace como la extensión natural de mi arte. Cada prenda es un lienzo que lleva mi sello distintivo, fusionando la estética tattoo con el streetwear urbano.",
+        "Colecciones limitadas que hablan el mismo lenguaje visual que mis tatuajes: audaces, personales y con una historia detrás de cada diseño."
       ]
     }
   ];
@@ -175,16 +175,14 @@ export const About: React.FC = () => {
                   {slide.subtitle}
                 </span>
                 <h2 className="font-display text-4xl md:text-5xl text-white mb-8 leading-tight">
-                  {slide.title.split(' ').map((word, i) => (
-                    <span key={i}>
-                      {word}
-                      {i === slide.title.split(' ').length - 2 && <br />}
-                      {i === slide.title.split(' ').length - 1 && (
-                        <span className="text-glow-blood"> {word}</span>
-                      )}
-                      {i < slide.title.split(' ').length - 1 && ' '}
-                    </span>
-                  ))}
+                  {slide.title.includes(' ') ? (
+                    <>
+                      {slide.title.split(' ').slice(0, -1).join(' ')} <br />
+                      <span className="text-glow-blood">{slide.title.split(' ').slice(-1)[0]}</span>
+                    </>
+                  ) : (
+                    <span className="text-glow-blood">{slide.title}</span>
+                  )}
                 </h2>
 
                 <div className="space-y-6 font-body text-sm md:text-base text-white/70 leading-relaxed">
@@ -195,34 +193,7 @@ export const About: React.FC = () => {
               </div>
             ))}
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-white/10">
-              <div>
-                <span className="font-display text-3xl md:text-4xl text-ink-bloodLight block">
-                  2.5K+
-                </span>
-                <span className="font-heading text-[10px] text-white/50 tracking-widest uppercase">
-                  Tatuajes
-                </span>
-              </div>
-              <div>
-                <span className="font-display text-3xl md:text-4xl text-ink-bloodLight block">
-                  6
-                </span>
-                <span className="font-heading text-[10px] text-white/50 tracking-widest uppercase">
-                  Artistas
-                </span>
-              </div>
-              <div>
-                <span className="font-display text-3xl md:text-4xl text-ink-bloodLight block">
-                  7
-                </span>
-                <span className="font-heading text-[10px] text-white/50 tracking-widest uppercase">
-                  Años
-                </span>
-              </div>
-            </div>
-          </div>
+                      </div>
         </div>
       </div>
 
