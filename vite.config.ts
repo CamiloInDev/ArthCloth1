@@ -9,10 +9,32 @@ export default defineConfig({
   plugins: [inspectAttr(), react()],
   server: {
     port: 3000,
+    host: true, // Allow external connections
+    cors: true, // Enable CORS for development
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false, // Disable sourcemaps in production
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['@radix-ui'],
+          gsap: ['gsap', '@gsap/react'],
+        }
+      }
+    }
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
+  },
+  optimizeDeps: {
+    exclude: ['kimi-plugin-inspect-react'], // Exclude dev plugin from production
+  }
 });

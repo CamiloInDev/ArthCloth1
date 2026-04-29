@@ -1,13 +1,20 @@
 {
-  "name": "my-app",
+  "name": "arthcloth",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build:prod": "npm run lint && npm run build && npm run test",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "preview": "vite preview",
+    "test": "echo 'No tests configured yet'",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules/.cache",
+    "security-check": "npm audit --audit-level=moderate",
+    "pre-commit": "npm run lint && npm run type-check"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
